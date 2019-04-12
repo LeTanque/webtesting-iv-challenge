@@ -17,6 +17,31 @@ server.get('/users', async (req, res) => {
 });
 
 
+server.post('/users', async (req, res) => {
+  if (!req.body.username) { 
+    return res.status(400).json({ 
+      message:"Please include a username to create a new user" 
+    })
+  }
+  try {
+    const user = await users.insert(req.body.username);
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json({ message:error });
+  }
+})
+
+
+server.delete('/users/:id', async (req, res) => {
+  try {
+    const deleteUser = await users.remove(req.params.id)
+    res.status(204).json({ message:deleteUser });
+  } catch (error) {
+    res.status(500).json({ message:error });
+  }
+});
+
+
 
 module.exports = server;
 

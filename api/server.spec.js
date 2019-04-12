@@ -12,5 +12,20 @@ describe('server.js', () => {
             })
         })
     })
+
+    describe('DELETE /users/:id', () => {
+        it('should respond with 204 OK', async () => {
+            const response = await request(server).delete('/users/:id');
+            expect(response.status).toBe(204);
+        })
+    })
+
+    describe('POST /users', () => {
+        it('should respond with 400 (no username supplied)', async () => {
+            const response = await request(server).post('/users');
+            expect(response.status).toBe(400);
+        })
+    })
+
 })
 
