@@ -24,5 +24,16 @@ describe('users model', () => {
             expect(users.username).toBe('sam');
         });
     });
+
+    describe('remove()', () => {
+        it('should remove the inserted user', async () => {
+            await Users.insert({ username: 'tank' });
+            await Users.insert({ username: 'tonfrat' });
+            await Users.remove(2);
+            await Users.remove(1);
+            const users = await db('users');
+            expect(users).toHaveLength(0);
+        });
+    });
 });
 
